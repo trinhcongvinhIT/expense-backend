@@ -4,8 +4,8 @@ WORKDIR /app
 COPY . .
 RUN mvn clean package -DskipTests
 
-# Bước 2: Nhặt cái file đã build ra và cho chạy bằng Java 17
-FROM openjdk:17-jdk-slim
+# Bước 2: Nhặt cái file đã build ra và cho chạy bằng Java 17 (Dùng bản Temurin xịn xò thay bản cũ)
+FROM eclipse-temurin:17-jre-alpine
 WORKDIR /app
 COPY --from=build /app/target/*-SNAPSHOT.jar app.jar
 EXPOSE 8080
