@@ -38,7 +38,7 @@ public class EmailService {
                     + "<p>Mã xác nhận (OTP) của bạn là: <b style='color:red; font-size: 20px;'>" + otp + "</b></p>"
                     + "<p>Mã này có hiệu lực trong 5 phút. Vui lòng không cung cấp mã này cho bất kỳ ai.</p>"
                     + "<br/>"
-                    + "<p>Trân trọng,<br/>Đội ngũ Website Chi Tiêu</p>"
+                    + "<p>Trân trọng,<br/>Đội ngũ Website Quản Lý Chi Tiêu</p>"
                     + "</body>"
                     + "</html>\""
                     + "}";
