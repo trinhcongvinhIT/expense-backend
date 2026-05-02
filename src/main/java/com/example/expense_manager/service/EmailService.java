@@ -12,7 +12,7 @@ import java.util.Random;
 public class EmailService {
 
     // ⚠️ DÁN API KEY CỦA BREVO VÀO ĐÂY
-    private final String BREVO_API_KEY = "xkeysib-cai-chuoi-api-key-cua-may";
+    private final String BREVO_API_KEY = "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";
     private final String EMAIL_NGUOI_GUI = "quanlychitieu24@gmail.com";
 
     public String generateOtp() {
