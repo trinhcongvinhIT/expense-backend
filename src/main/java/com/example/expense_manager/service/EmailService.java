@@ -1,32 +1,38 @@
 package com.example.expense_manager.service;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-
 import java.util.Random;
 
 @Service
 public class EmailService {
 
-    // ⚠️ DÁN API KEY CỦA BREVO VÀO ĐÂY
-    private final String BREVO_API_KEY = "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";
+    // ⚠️ Đọc API Key từ file cấu hình ảo (Tuyệt mật)
+    @Value("${brevo.api.key}")
+    private String brevoApiKey;
+
+    // Email đăng ký Brevo của mày
     private final String EMAIL_NGUOI_GUI = "quanlychitieu24@gmail.com";
 
     public String generateOtp() {
         return String.format("%06d", new Random().nextInt(999999));
     }
 
-    public void sendOtpEmail(String toEmail, String otp) {
+    public boolean sendOtpEmail(String toEmail, String otp) {
         try {
             RestTemplate restTemplate = new RestTemplate();
             String url = "https://api.brevo.com/v3/smtp/email";
 
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_JSON);
-            headers.set("api-key", BREVO_API_KEY);
+
+            // Dùng cái biến bí mật đã được mã hóa ở trên
+            headers.set("api-key", brevoApiKey);
 
             String requestJson = "{"
                     + "\"sender\":{\"name\":\"Website Chi Tieu\",\"email\":\"" + EMAIL_NGUOI_GUI + "\"},"
@@ -36,10 +42,12 @@ public class EmailService {
                     + "}";
 
             HttpEntity<String> entity = new HttpEntity<>(requestJson, headers);
-            restTemplate.postForEntity(url, entity, String.class);
+            ResponseEntity<String> response = restTemplate.postForEntity(url, entity, String.class);
             System.out.println("✅ Goi mail API thanh cong!");
+            return response.getStatusCode().is2xxSuccessful();
         } catch (Exception e) {
             System.out.println("❌ Loi API: " + e.getMessage());
+            return false;
         }
     }
 }
