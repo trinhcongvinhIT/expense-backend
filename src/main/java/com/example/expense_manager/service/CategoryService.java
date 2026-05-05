@@ -59,4 +59,8 @@ public class CategoryService {
         // Lưu toàn bộ vào Database cùng một lúc
         categoryRepository.saveAll(defaultCategories);
     }
+    // Hàm lưu danh mục mới vào Database
+    public Category saveCategory(Category category) {
+        return categoryRepository.save(category);
+    }
 }
