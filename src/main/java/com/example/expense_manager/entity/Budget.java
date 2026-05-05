@@ -31,4 +31,8 @@ public class Budget {
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
+
+    // 👇 ĐÂY LÀ DÒNG TAO VỪA THÊM VÀO ĐỂ LÀM TÍNH NĂNG "LẶP LẠI THÁNG SAU" 👇
+    @Column(name = "is_recurring", nullable = false, columnDefinition = "boolean default false")
+    private boolean isRecurring;
 }
